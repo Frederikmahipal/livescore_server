@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
 
 async function connectDB() {
   try {
-    await mongoose.connect('mongodb+srv://dbuser:dbpass@cluster.6eqehlv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster', {
+    await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
