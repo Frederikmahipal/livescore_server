@@ -1,14 +1,24 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
 
-const API_KEY = 'c89013a3a2dc4bba86b37a398eaab5c0'; 
+dotenv.config();
+
+const API_KEY = process.env.API_KEY;
+
+var cashedMatches;
 
 export async function fetchMatches() {
+  if (cashedMatches) {
+    return cashedMatches;
+  }
+
   try {
-    const response = await axios.get('https://api.football-data.org/v4/competitions/CL/matches', {
+    const response = await axios.get('https://api.football-data.org/v4/competitions/EC/matches', {
       headers: { 'X-Auth-Token': API_KEY }
     });
     console.log('RETRIEVED MATCH DATA');
-    return response.data;
+    cashedMatches = response.data;
+    return cashedMatches;
   } catch (error) {
     console.error(error);
     throw new Error('An error occurred while fetching match data');
@@ -21,6 +31,7 @@ export async function fetchMatchDetails(id) {
       headers: { 'X-Auth-Token': API_KEY }
     });
     console.log('RETRIEVED MATCH DETAILS');
+
     return response.data;
   } catch (error) {
     console.error(error);
@@ -38,30 +49,5 @@ export async function fetchTeamDetails(id) {
   } catch (error) {
     console.error(error);
     throw new Error('An error occurred while fetching team details');
-  }
-}
-
-export async function fetchTeamById(id) {
-  try {
-    const response = await axios.get(`https://api.football-data.org/v4/teams/${id}`, {
-      headers: { 'X-Auth-Token': API_KEY }
-    });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw new Error('An error occurred while fetching team by id');
-  }
-}
-
-export async function fetchStandings() {
-  try {
-    const response = await axios.get(`https://api.football-data.org/v2/competitions/EC/standings`, {
-      headers: { 'X-Auth-Token': API_KEY }
-    });
-    console.log('RETRIEVED STANDINGS');
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw new Error('An error occurred while fetching standings');
   }
 }

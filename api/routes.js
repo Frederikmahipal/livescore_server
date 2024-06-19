@@ -1,5 +1,5 @@
 import express from 'express';
-import { fetchMatches, fetchMatchDetails, fetchTeamDetails, fetchTeamById, fetchStandings } from '../football-data.js';
+import { fetchMatches, fetchMatchDetails, fetchTeamDetails } from '../football-data.js';
 import { crawlWebsite } from '../crawler.js';
 
 const router = express.Router();
@@ -34,34 +34,15 @@ router.get('/teams/:id', async (req, res) => {
   }
 });
 
-router.get('/articles', async (req, res) => {
-  try {
-    const articles = await crawlWebsite('https://www.skysports.com/football');
-    res.json(articles);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred while crawling the website' });
-  }
-});
 
-router.get('/team/:id', async (req, res) => {
+router.get('/groups/:id', async (req, res) => {
   try {
-    const data = await fetchTeamById(req.params.id);
+    const data = await fetchGroups(req.params.id);
     res.json(data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching team data' });
+    res.status(500).json({ error: 'An error occurred while fetching groups' });
   }
 });
-
-router.get('/standings', async (req, res) => {
-  try {
-    const data = await fetchStandings();
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred while fetching standings' });
-  }}
-);
 
 export default router;
