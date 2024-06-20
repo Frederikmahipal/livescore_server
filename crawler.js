@@ -9,6 +9,24 @@ export async function crawlWebsite(url) {
 
     const articles = [];
 
+    $('.news-top-story__body').each((index, element) => {
+      const title = $(element).find('.news-top-story__headline').text().trim();
+      const link = $(element).find('.news-top-story__headline a').attr('href');
+      const summary = $(element).find('.news-top-story__snippet').text().trim();
+      let image = $(element).prev().find('.news-top-story__image').attr('data-src');
+
+      articles.push({ title, link, summary, image });
+    });
+
+    $('.news-list-featured__body').each((index, element) => {
+      const title = $(element).find('.news-list-featured__headline').text().trim();
+      const link = $(element).find('.news-list-featured__headline a').attr('href');
+      const summary = $(element).find('.news-list-featured__snippet').text().trim();
+      let image = $(element).prev().find('.news-list-featured__image').attr('data-src'); 
+
+      articles.push({ title, link, summary, image });
+    });
+
     $('.news-list__item').each((index, element) => {
       const title = $(element).find('.news-list__headline').text().trim();
       const link = $(element).find('.news-list__headline a').attr('href');
@@ -19,6 +37,7 @@ export async function crawlWebsite(url) {
     });
 
     return articles;
+
   } catch (error) {
     console.error(error);
     throw new Error('An error occurred while crawling the website');
