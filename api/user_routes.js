@@ -43,8 +43,6 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Invalid email/username or password' });
     }
 
-    //REMOVE THIS?
-    res.cookie('session_id', req.session.id, { httpOnly: true, secure: true, sameSite: 'strict' });
     req.session.userId = user._id;
 
     res.json({ message: 'Logged in successfully', user });
@@ -53,9 +51,6 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'An error occurred while logging in' });
   }
 });
-
-
-
 
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
@@ -66,7 +61,7 @@ router.get('/logout', (req, res) => {
   });
 });
 
-// Delete route
+
 router.delete('/delete/:id', async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndRemove(req.params.id);
