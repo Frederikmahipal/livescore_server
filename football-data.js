@@ -8,9 +8,10 @@ const API_KEY = process.env.API_KEY;
 var cashedMatches;
 
 export async function fetchMatches() {
-  if (cashedMatches) {
-    return cashedMatches;
-  }
+
+  // if (cashedMatches) {
+  //   return cashedMatches;
+  // }
 
   try {
     const response = await axios.get('https://api.football-data.org/v4/competitions/EC/matches', {
@@ -18,7 +19,7 @@ export async function fetchMatches() {
     });
     console.log('RETRIEVED MATCH DATA');
     cashedMatches = response.data;
-    return cashedMatches;
+    return response.data;
   } catch (error) {
     console.error(error);
     throw new Error('An error occurred while fetching match data');
