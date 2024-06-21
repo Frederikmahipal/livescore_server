@@ -13,7 +13,7 @@ router.get('/Articles', async (req, res) => {
         await Article.create(article);
       }
     }
-    const articles = await Article.find({}).sort({ createdAt: -1 });
+    const articles = await Article.find({});
     res.json(articles);
   } catch (error) {
     console.error(error);
