@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://ec2024app.vercel.app'],
+  origin: ['http://localhost:3000', 'https://livescore-client.vercel.app/'],
   credentials: true,
 };
 

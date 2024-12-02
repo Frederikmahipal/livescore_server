@@ -14,7 +14,7 @@ export async function fetchMatches() {
   // }
 
   try {
-    const response = await axios.get('https://api.football-data.org/v4/competitions/EC/matches', {
+    const response = await axios.get('https://api.football-data.org/v4/competitions/PL/matches', {
       headers: { 'X-Auth-Token': API_KEY }
     });
     console.log('RETRIEVED MATCH DATA');
