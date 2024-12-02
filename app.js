@@ -13,15 +13,15 @@ dotenv.config();
 
 const app = express();
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://ec2024app.onrender.com', 'https://ec2024app.vercel.app'], 
-  credentials: true, 
+  origin: ['http://localhost:3000', 'https://ec2024app.vercel.app'],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: true,
 }));
