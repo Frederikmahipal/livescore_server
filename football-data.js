@@ -8,21 +8,19 @@ const API_KEY = process.env.API_KEY;
 var cashedMatches;
 
 export async function fetchMatches() {
-
-  // if (cashedMatches) {
-  //   return cashedMatches;
-  // }
-
   try {
     const response = await axios.get('https://api.football-data.org/v4/competitions/PL/matches', {
-      headers: { 'X-Auth-Token': API_KEY }
+      headers: { 'X-Auth-Token': API_KEY },
+      params: {
+        season: 2024  
+      }
     });
-    console.log('RETRIEVED MATCH DATA');
+    console.log('RETRIEVED PREMIER LEAGUE MATCH DATA');
     cashedMatches = response.data;
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error('An error occurred while fetching match data');
+    throw new Error('An error occurred while fetching Premier League match data');
   }
 }
 
